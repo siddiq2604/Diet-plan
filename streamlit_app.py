@@ -253,6 +253,7 @@ with tabs[2]:
                 Create a {workout_days}-day/week {workout_goal} workout plan for a {age}-year-old {gender}.
                 Requirements:
                 - Home workout preferred
+                - In the rows the whole day meals should be provided under single day column
                 - Include sets/reps and YouTube links in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
                 - Format: Markdown table with columns: | Day | Exercise | Duration/Reps | Target Area | Video Link |
                 - Add 4-week progression plan
