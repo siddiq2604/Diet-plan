@@ -203,12 +203,12 @@ with tabs[1]:
             with st.spinner("🔄 Creating your personalized diet plan..."):
                 diet_prompt = f"""
                 Create a 7-day {st.session_state.app_state['target_calories']} kcal {diet_type} meal plan for a {age}-year-old {gender}.
-                Requirements:
+                Strict Requirements:
                 - Indian cuisine with their quantity in grams
                 - Budget: {budget}
                 - Avoid: {dislikes}
                 - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients 
-                - show the meal day number for breakfast only in day column
+                - show the day number for only breakfast in day column for whole week
                 - YouTube Recipe Video links for each meal in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
                 - Format: Markdown table with columns: | Day | Meal | Description | Calories | Nutrients | Recipe Link |
                 """
@@ -249,7 +249,7 @@ with tabs[2]:
             with st.spinner("🔄 Creating your personalized workout plan..."):
                 workout_prompt = f"""
                 Create a {workout_days}-day/week {workout_goal} workout plan for a {age}-year-old {gender}.
-                Requirements:
+                Strict Requirements:
                 - Home workout preferred
                 - Show the workout day number for the first exercise only
                 - Include sets/reps and YouTube links in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
