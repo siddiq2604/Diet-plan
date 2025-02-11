@@ -2,5 +2,5 @@ streamlit
 crewai
 langchain_groq
 xlsxwriter
-BytesIO
+io
 os
