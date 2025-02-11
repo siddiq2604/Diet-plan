@@ -207,10 +207,10 @@ with tabs[1]:
                 diet_prompt = f"""
                 Create a 7-day {st.session_state.app_state['target_calories']} kcal {diet_type} meal plan for a {age}-year-old {gender}.
                 Requirements:
-                - Indian cuisine with their quantity
+                - Indian cuisine with their quantity in grams
                 - Budget: {budget}
                 - Avoid: {dislikes}
-                - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients
+                - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients and show only the meal day number for breakfsat only 
                 - YouTube Recipe Video links for each meal in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
                 - Format: Markdown table with columns: | Day | Meal | Description | Calories | Nutrients | Recipe Link |
                 """
@@ -253,7 +253,7 @@ with tabs[2]:
                 Create a {workout_days}-day/week {workout_goal} workout plan for a {age}-year-old {gender}.
                 Requirements:
                 - Home workout preferred
-                - In the rows the whole day meals should be provided under single day column
+                - Show the workout day number for the first exercise only
                 - Include sets/reps and YouTube links in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
                 - Format: Markdown table with columns: | Day | Exercise | Duration/Reps | Target Area | Video Link |
                 - Add 4-week progression plan
