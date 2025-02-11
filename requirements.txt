@@ -3,3 +3,4 @@ crewai
 langchain_groq
 xlsxwriter
 BytesIO
+os
