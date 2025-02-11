@@ -53,9 +53,6 @@ st.markdown("""
         padding: 12px 24px;
         border: none;
     }
-    .stButton > button:hover {
-        background-color: #FF4B4B;
-    }
     
     /* Centered Section with Card Style */
     .content-container {
@@ -210,7 +207,8 @@ with tabs[1]:
                 - Indian cuisine with their quantity in grams
                 - Budget: {budget}
                 - Avoid: {dislikes}
-                - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients and show the meal day number for breakfsat only.
+                - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients 
+                - show the meal day number for breakfast only
                 - YouTube Recipe Video links for each meal in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
                 - Format: Markdown table with columns: | Day | Meal | Description | Calories | Nutrients | Recipe Link |
                 """
