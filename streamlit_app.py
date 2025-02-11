@@ -8,6 +8,8 @@ import xlsxwriter
 from io import BytesIO
 import os
 
+
+
 # Set page configuration
 st.set_page_config(
     page_title="Fitness & Nutrition Planner 💪",
@@ -51,8 +53,10 @@ st.markdown("""
         padding: 12px 24px;
         border: none;
     }
-    /* Removed hover effect */
-
+    .stButton > button:hover {
+        background-color: #FF4B4B;
+    }
+    
     /* Centered Section with Card Style */
     .content-container {
         background: white;
@@ -179,24 +183,6 @@ with tabs[0]:
                     <p>Maintenance calories: {tdee:.0f} kcal/day</p>
                 </div>
             """, unsafe_allow_html=True)
-            
-            # Add a Next Tab link to move to Diet Planning
-            st.markdown("""
-                <br>
-                <a href="#" id="nextTabLinkDiet">Next: Diet Planning</a>
-                <script>
-                document.getElementById('nextTabLinkDiet').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tabs = window.parent.document.querySelectorAll('button[role="tab"]');
-                    for (let i = 0; i < tabs.length; i++){
-                        if (tabs[i].innerText.trim() === "Diet Planning"){
-                            tabs[i].click();
-                            break;
-                        }
-                    }
-                });
-                </script>
-            """, unsafe_allow_html=True)
 
 with tabs[1]:
     st.markdown("### 🍽️ Diet Planning")
@@ -218,19 +204,15 @@ with tabs[1]:
 
         if st.button("Generate Diet Plan", key="gen_diet"):
             with st.spinner("🔄 Creating your personalized diet plan..."):
-                # Modified prompt with instructions for table formatting:
                 diet_prompt = f"""
                 Create a 7-day {st.session_state.app_state['target_calories']} kcal {diet_type} meal plan for a {age}-year-old {gender}.
                 Requirements:
-                - Use Indian cuisine with appropriate portion sizes.
+                - Indian cuisine with their quantity
                 - Budget: {budget}
                 - Avoid: {dislikes}
-                - For day 1, provide a detailed plan covering breakfast, lunch, dinner, and snack.
-                - For days 2 to 7, provide a consolidated meal plan for the entire day.
-                - Include detailed calories and nutrient breakdown.
-                - Provide YouTube Recipe Video links for each meal using the format "https://www.youtube.com/results?search_query=".
-                - Format: Markdown table with columns: | Day | Meal Type | Description | Calories | Nutrients | Recipe Link |
-                  For day 1, set Meal Type as "1 - Detailed"; for days 2 to 7, set Meal Type as "2 - Consolidated".
+                - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients
+                - YouTube Recipe Video links for each meal in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
+                - Format: Markdown table with columns: | Day | Meal | Description | Calories | Nutrients | Recipe Link |
                 """
                 
                 diet_task = Task(
@@ -250,25 +232,6 @@ with tabs[1]:
                     st.markdown("#### 📋 Your Personalized Diet Plan")
                     st.markdown(diet_result)
                     st.session_state.app_state['diet_plan'] = diet_result
-                    
-                    # Add a Next Tab link to move to Workout Planning
-                    st.markdown("""
-                        <br>
-                        <a href="#" id="nextTabLinkWorkout">Next: Workout Planning</a>
-                        <script>
-                        document.getElementById('nextTabLinkWorkout').addEventListener('click', function(e) {
-                            e.preventDefault();
-                            const tabs = window.parent.document.querySelectorAll('button[role="tab"]');
-                            for (let i = 0; i < tabs.length; i++){
-                                if (tabs[i].innerText.trim() === "Workout Planning"){
-                                    tabs[i].click();
-                                    break;
-                                }
-                            }
-                        });
-                        </script>
-                    """, unsafe_allow_html=True)
-                    
                 except Exception as e:
                     st.error(f"Error generating diet plan: {str(e)}")
     else:
@@ -286,17 +249,13 @@ with tabs[2]:
         
         if st.button("Generate Workout Plan", key="gen_workout"):
             with st.spinner("🔄 Creating your personalized workout plan..."):
-                # Modified prompt with instructions for table formatting:
                 workout_prompt = f"""
                 Create a {workout_days}-day/week {workout_goal} workout plan for a {age}-year-old {gender}.
                 Requirements:
-                - Home workout preferred.
-                - For day 1, provide a detailed workout plan including warm-up, main exercises, and cool-down.
-                - For the remaining workout days, provide a consolidated workout plan.
-                - Include sets, reps, and YouTube links for exercise demonstrations using the format "https://www.youtube.com/results?search_query=".
-                - Include a 4-week progression plan.
-                - Format: Markdown table with columns: | Day | Workout Type | Details | Duration/Reps | Target Area | Video Link |
-                  For day 1, set Workout Type as "1 - Detailed"; for the remaining days, set Workout Type as "2 - Consolidated".
+                - Home workout preferred
+                - Include sets/reps and YouTube links in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
+                - Format: Markdown table with columns: | Day | Exercise | Duration/Reps | Target Area | Video Link |
+                - Add 4-week progression plan
                 """
                 
                 workout_task = Task(
