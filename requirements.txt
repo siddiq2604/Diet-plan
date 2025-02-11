@@ -2,5 +2,4 @@ crewai==0.100.1
 streamlit==1.42.0
 langchain-core==0.3.34
 langchain-groq==0.2.4
-XlsxWriter==3.2.2
-sqlite3 >= 3.35.0
+XlsxWriter
