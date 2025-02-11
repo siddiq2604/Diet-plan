@@ -1,6 +1,5 @@
 streamlit
 crewa
 langchain_groq
-ixlsxwriter
+xlsxwriter
 BytesIO
-os
