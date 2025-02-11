@@ -1,5 +1,5 @@
 streamlit
-crewa
+crewai
 langchain_groq
 xlsxwriter
 BytesIO
