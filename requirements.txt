@@ -1,1 +1,6 @@
 streamlit
+crewa
+langchain_groq
+ixlsxwriter
+BytesIO
+os
