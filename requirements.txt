@@ -3,3 +3,5 @@ streamlit==1.42.0
 langchain-core==0.3.34
 langchain-groq==0.2.4
 XlsxWriter
+pysqlite3-binary
+chromadb

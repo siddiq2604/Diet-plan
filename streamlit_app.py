@@ -5,6 +5,10 @@ import xlsxwriter
 from io import BytesIO
 import os
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 # Set page configuration
 st.set_page_config(
     page_title="Fitness & Nutrition Planner 💪",
