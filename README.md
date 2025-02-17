@@ -17,3 +17,9 @@ A simple Streamlit app template for you to modify!
    ```
    $ streamlit run streamlit_app.py
    ```
+
+
+To use the website click this link:
+   ```
+   $ https://healthifyyy.streamlit.app/
+   ```
