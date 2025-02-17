@@ -19,7 +19,7 @@ A simple Streamlit app template for you to modify!
    ```
 
 
-To use the website click this link:
+To use the website. paste this link in browser:
    ```
-   $ https://healthifyyy.streamlit.app/
+   https://healthifyyy.streamlit.app/
    ```
