@@ -208,8 +208,7 @@ with tabs[1]:
                 - Budget: {budget}
                 - Avoid: {dislikes}
                 - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients 
-                - Provide dynamic diet calories combined the whole day equal to the selected diet goal calories
-                - Only show single day count whole the whole for all the meals combined
+                - show the day number for only breakfast in day column.
                 - YouTube Recipe Video links for each meal in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
                 - Format: Markdown table with columns: | Day | Meal | Description | Calories | Nutrients | Recipe Link |
                 """
