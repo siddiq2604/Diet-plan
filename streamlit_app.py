@@ -8,8 +8,6 @@ import xlsxwriter
 from io import BytesIO
 import os
 
-
-
 # Set page configuration
 st.set_page_config(
     page_title="Fitness & Nutrition Planner 💪",
@@ -53,6 +51,9 @@ st.markdown("""
         padding: 12px 24px;
         border: none;
     }
+    .stButton > button:hover {
+        background-color: #FF4B4B;
+    }
     
     /* Centered Section with Card Style */
     .content-container {
@@ -89,7 +90,7 @@ st.markdown("""
 # Initialize Groq and Agents
 os.environ["GROQ_API_KEY"] = st.secrets.GROQ_API_KEY
 GROQ_API_KEY = os.environ["GROQ_API_KEY"]
-llm = ChatGroq(temperature=0, groq_api_key=GROQ_API_KEY, model_name="groq/mixtral-8x7b-32768")
+llm = ChatGroq(temperature=0, groq_api_key=GROQ_API_KEY, model_name="groq/llama-3.3-70b-versatile")
 
 diet_agent = Agent(
     role='Nutrition Expert',
@@ -203,14 +204,23 @@ with tabs[1]:
             with st.spinner("🔄 Creating your personalized diet plan..."):
                 diet_prompt = f"""
                 Create a 7-day {st.session_state.app_state['target_calories']} kcal {diet_type} meal plan for a {age}-year-old {gender}.
-                Strict Requirements:
-                - Indian cuisine with their quantity in grams
+                StrictRequirements:
+                - Indian cuisine with their quantity
                 - Budget: {budget}
                 - Avoid: {dislikes}
-                - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients 
-                - show the day number for only breakfast in day column.
-                - YouTube Recipe Video links for each meal in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
+                - The selected calorie goal exactly among Breakfast, Lunch, Dinner, and Snacks
+                - 4 meals/day (Breakfast, Lunch, Dinner, Snack) with detailed calories and nutrients
+                - YouTube Recipe Video links for each meal in this format:"https://www.youtube.com/results?search_query="
                 - Format: Markdown table with columns: | Day | Meal | Description | Calories | Nutrients | Recipe Link |
+                  - List day number only once before Breakfast row for each day
+                  - Use empty Day column for subsequent meals (Lunch, Snack, Dinner)
+                  - Example:
+                    | Day | Meal | Description | Calories | Nutrients | Recipe Link |
+                    |-----|------|-------------|----------|-----------|-------------|
+                    | 1   | Breakfast | ... | ... | ... | ... |
+                    |     | Lunch | ... | ... | ... | ... |
+                    |     | Snack | ... | ... | ... | ... |
+                    |     | Dinner | ... | ... | ... | ... |
                 """
                 
                 diet_task = Task(
@@ -249,12 +259,18 @@ with tabs[2]:
             with st.spinner("🔄 Creating your personalized workout plan..."):
                 workout_prompt = f"""
                 Create a {workout_days}-day/week {workout_goal} workout plan for a {age}-year-old {gender}.
-                Strict Requirements:
+                Requirements:
                 - Home workout preferred
-                - Show the workout day number for the first exercise only
-                - Include sets/reps and YouTube links in this format:"https://www.youtube.com/results?search_query=" in Recipe Line Column
-                - Format: Markdown table with columns: | Day | Exercise | Duration/Reps | Target Area | Video Link |
+                - Include sets/reps and YouTube links in this format:"https://www.youtube.com/results?search_query="
                 - Add 4-week progression plan
+                - Format: Markdown table with columns: | Day | Exercise | Duration/Reps | Target Area | Video Link |
+                  - List day number only once at the start of each day's workout
+                  - Use empty Day column for subsequent exercises on the same day
+                  - Example:
+                    | Day | Exercise | Duration/Reps | Target Area | Video Link |
+                    |-----|----------|---------------|-------------|------------|
+                    | 1   | Push-ups | 3x15          | Chest       | ...        |
+                    |     | Plank    | 3x1min        | Core        | ...        |
                 """
                 
                 workout_task = Task(
