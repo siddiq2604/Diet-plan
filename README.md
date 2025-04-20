@@ -1,4 +1,4 @@
-# 🎈 Blank app template
+# 🎈 My Final Year Project
 
 A simple Streamlit app template for you to modify!
 
